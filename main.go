@@ -2,6 +2,7 @@ package main
 
 import (
 	"example/shop-golang/model"
+	"example/shop-golang/middleware/jwt"
 	"example/shop-golang/router"
 	"fmt"
 	"net/http"
@@ -25,6 +26,9 @@ func main() {
 
 	// setup router
 	r := gin.Default()
+
+	// middleware
+	r.Use(jwt.JwtMiddleware)
 
 	// home router
 	r.GET("/", func(ctx *gin.Context) {
