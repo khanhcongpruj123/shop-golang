@@ -1,6 +1,7 @@
 package jwt
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -19,10 +20,11 @@ func JwtMiddleware(c *gin.Context) {
 	}
 
 	tokenString := authHeader[len(BEARER_SCHEMA):]
-	isValid, _ := service.ValidateToken(tokenString)
+	isValid, err := service.ValidateToken(tokenString)
 	if isValid {
 
 	} else {
+		fmt.Println(err)
 		c.AbortWithStatus(http.StatusUnauthorized)
 	}
 }
